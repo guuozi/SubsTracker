@@ -1600,7 +1600,7 @@ const lunarBiz = {
       }
 
       // 清空表格
-      tbody.innerHTML = '';
+      // tbody.innerHTML = '';
 
       const currentTime = new Date();
       const currentTimestamp = currentTime.getTime();
@@ -1840,7 +1840,7 @@ const lunarBiz = {
         fragment.appendChild(row);
       });
 
-      tbody.appendChild(fragment);
+      tbody.replaceChildren(fragment);
       document.querySelectorAll('.edit').forEach(button => {
         button.addEventListener('click', editSubscription);
       });
@@ -1897,6 +1897,11 @@ const lunarBiz = {
     const statusSelect = document.getElementById('statusFilter');
     if (statusSelect) {
       statusSelect.addEventListener('change', () => renderSubscriptionTable());
+    }
+
+    const listShowLunar = document.getElementById('listShowLunar');
+    if (listShowLunar) {
+      listShowLunar.addEventListener('change', handleListLunarToggle);
     }
 
     // 获取所有订阅并按到期时间排序
