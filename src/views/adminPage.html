@@ -3506,10 +3506,11 @@ const lunarBiz = {
     
 	    // 新增修改，编辑订阅时回显 useLunar 字段
     async function editSubscription(e) {
-      const button = e.target.closest('button');
+      let btnEditICls;
+	  const button = e.target.closest('button');
       const id = button ? button.dataset.id : (e.target.dataset.id || e.target.parentElement.dataset.id);
-      if (button) { button.disabled = true; button.innerHTML = '<i class="fas fa-spinner fa-spin"></i>'; }
-      
+      if (button) { button.disabled = true; btnEditICls = button.firstChild.classList; btnEditICls.add("fa-spinner", "fa-spin"); }
+		
       try {
         const response = await apiFetch('/api/subscriptions/' + id);
         const subscription = await response.json();
@@ -3584,7 +3585,7 @@ const lunarBiz = {
         showToast('获取订阅信息失败', 'error');
         isEditingLoading = false;
       } finally {
-        if (button) { button.disabled = false; button.innerHTML = '<i class="fas fa-edit"></i>'; }
+		if (button) { button.disabled = false; btnEditICls.remove("fa-spinner", "fa-spin"); }
       }
     }
     
